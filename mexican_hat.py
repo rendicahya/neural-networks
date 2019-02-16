@@ -2,7 +2,7 @@ import numpy as np
 
 
 def act(x):
-    return 0 if x < 0 else x if 0 <= x <= 2 else 2
+    return [0 if i < 0 else i if 0 <= i <= 2 else 2 for i in x]
 
 
 def iter(x, r2, c1, c2, t_max):
@@ -10,13 +10,12 @@ def iter(x, r2, c1, c2, t_max):
     k[0] = k[-1] = c2
 
     for t in range(t_max):
-        x_ = np.convolve(x, k, 'same')
-        x = [act(i) for i in x_]
+        x = act(np.convolve(x, k, 'same'))
         print(x)
 
 
 def main():
-    x = [0, .5, .8, 1, .8, .5, 0]
+    x = [-1, .5, .8, 1, .8, .5, -1]
 
     iter(x, 2, .6, -.4, 5)
 
