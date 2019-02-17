@@ -11,14 +11,10 @@ def run(ex, x):
     return m
 
 
-def main():
+if __name__ == '__main__':
     ex = [[1, -1, -1, -1],
           [-1, -1, -1, 1]]
     x = [1, 1, -1, -1]
     h = run(ex, x)
 
     print(h)
-
-
-if __name__ == '__main__':
-    main()
