@@ -1,11 +1,14 @@
 import numpy as np
+import maxnet
 
 
 def run(ex, x):
     w = np.array(ex) / 2
     b = len(w[0]) / 2
+    y = [b + sum(x * w[i]) for i in range(len(w))]
+    m = maxnet.run(y)
 
-    return [b + sum(x * w[i]) for i in range(len(w))]
+    return m
 
 
 def main():
