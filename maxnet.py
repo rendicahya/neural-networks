@@ -21,13 +21,9 @@ def run(a, e=None):
     return a
 
 
-def main():
+if __name__ == '__main__':
     a = [.2, .4, .6, .8]
     e = .2
     m = run(a, e)
 
     print(m)
-
-
-if __name__ == '__main__':
-    main()
