@@ -12,7 +12,7 @@ def hebb_train(s, t, draw=False):
     for r, row in enumerate(s):
         w = [w[i] + row[i] * t[r] for i in range(len(row))]
 
-        print('Bobot: {}'.format(w))
+        print('Weight: {}'.format(w))
 
         if draw:
             plot(line(w, 0), s, t)
@@ -26,7 +26,7 @@ def hebb_test(x, w):
     return bipstep(y_in)
 
 
-def main():
+if __name__ == '__main__':
     # AND
     train = [[1, 1], [1, -1], [-1, 1], [-1, -1]]
     target = [1, -1, -1, -1]
@@ -40,7 +40,3 @@ def main():
     w = hebb_train(train, target, True)
 
     print(hebb_test([-1, -1], w))
-
-
-if __name__ == '__main__':
-    main()
