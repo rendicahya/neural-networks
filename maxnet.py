@@ -5,7 +5,7 @@ def act(x):
     return x if x >= 0 else 0
 
 
-def iter(a, e=None):
+def run(a, e=None):
     if e is None:
         e = np.random.uniform(0, len(a))
 
@@ -24,7 +24,7 @@ def iter(a, e=None):
 def main():
     a = [.2, .4, .6, .8]
     e = .2
-    m = iter(a, e)
+    m = run(a, e)
 
     print(m)
 
