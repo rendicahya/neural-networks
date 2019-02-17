@@ -14,10 +14,6 @@ def run(x, r2, c1, c2, t_max):
         print(x)
 
 
-def main():
+if __name__ == '__main__':
     x = [-1, .5, .8, 1, .8, .5, -1]
     run(x, 2, .6, -.4, 5)
-
-
-if __name__ == '__main__':
-    main()
