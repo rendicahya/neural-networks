@@ -18,13 +18,15 @@ def iter(a, e=None):
 
         a = a_new
 
-        print(a)
+    return a
 
 
 def main():
     a = [.2, .4, .6, .8]
     e = .2
-    iter(a, e)
+    m = iter(a, e)
+
+    print(m)
 
 
 if __name__ == '__main__':
