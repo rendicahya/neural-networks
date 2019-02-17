@@ -27,9 +27,5 @@ def XOR(x):
     return OR(z)
 
 
-def main():
-    print(AND([1, 1]))
-
-
 if __name__ == '__main__':
-    main()
+    print(AND([1, 1]))
