@@ -8,7 +8,7 @@ def act(x):
 def iter(x, r2, c1, c2, t_max):
     k = [c1] * (r2 * 2 + 1)
     k[0] = k[-1] = c2
-
+c
     for t in range(t_max):
         x = act(np.convolve(x, k, 'same'))
         print(x)
@@ -16,7 +16,6 @@ def iter(x, r2, c1, c2, t_max):
 
 def main():
     x = [-1, .5, .8, 1, .8, .5, -1]
-
     iter(x, 2, .6, -.4, 5)
 
 
