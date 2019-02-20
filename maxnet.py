@@ -18,7 +18,7 @@ def maxnet(a, e=None):
 
         a = a_new
 
-    return a
+    return np.argmax(a)
 
 
 if __name__ == '__main__':
@@ -26,4 +26,4 @@ if __name__ == '__main__':
     e = .2
     m = maxnet(a, e)
 
-    print(m)
+    print(a[m])

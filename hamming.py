@@ -9,7 +9,7 @@ def hamming(ex, x):
     y = [b + sum(x * w[i]) for i in range(len(w))]
     m = maxnet(y)
 
-    return m
+    return ex[m]
 
 
 if __name__ == '__main__':
