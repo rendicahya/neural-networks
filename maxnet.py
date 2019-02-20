@@ -5,7 +5,7 @@ def act(x):
     return x if x >= 0 else 0
 
 
-def run(a, e=None):
+def maxnet(a, e=None):
     if e is None:
         e = np.random.uniform(0, 1 / len(a))
 
@@ -24,6 +24,6 @@ def run(a, e=None):
 if __name__ == '__main__':
     a = [.2, .4, .6, .8]
     e = .2
-    m = run(a, e)
+    m = maxnet(a, e)
 
     print(m)
