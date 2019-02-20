@@ -7,7 +7,7 @@ def act(x):
 
 def run(a, e=None):
     if e is None:
-        e = np.random.uniform(0, len(a))
+        e = np.random.uniform(0, 1 / len(a))
 
     while np.count_nonzero(a) > 1:
         a_new = np.zeros(len(a))
