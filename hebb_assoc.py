@@ -15,6 +15,12 @@ def hebb_assoc_train(s, t):
     return w
 
 
+def hebb_assoc_train_outer(s, t):
+    p = [np.outer(np.reshape(s[i], (-1, 1)), t[i]) for i in range(len(s))]
+
+    return np.sum(p, 0)
+
+
 def hebb_assoc_test(x, w):
     y = [np.dot(x, w[:, i]) for i in range(2)]
 
@@ -32,7 +38,7 @@ if __name__ == '__main__':
                   [0, 1],
                   [0, 1]])
 
-    w = hebb_assoc_train(s, t)
-    y = hebb_assoc_test([0, 0, 1, 1], w)
+    w = hebb_assoc_train_outer(s, t)
+    y = hebb_assoc_test([1, 0, 0, 0], w)
 
     print(y)
