@@ -28,17 +28,18 @@ def hebb_assoc_test(x, w):
 
 
 if __name__ == '__main__':
-    s = [[1, 0, 0, 0],
-         [1, 1, 0, 0],
-         [0, 0, 0, 1],
-         [0, 0, 1, 1]]
+    s = [[1, -1, -1, -1],
+         [1, 1, -1, -1],
+         [-1, -1, -1, 1],
+         [-1, -1, 1, 1]]
 
-    t = np.array([[1, 0],
-                  [1, 0],
-                  [0, 1],
-                  [0, 1]])
+    t = np.array([[1, -1],
+                  [1, -1],
+                  [-1, 1],
+                  [-1, 1]])
 
     w = hebb_assoc_train_outer(s, t)
-    y = hebb_assoc_test([1, 0, 0, 0], w)
+    print(w)
+    y = hebb_assoc_test([0, 0, 1, 1], w)
 
     print(y)
