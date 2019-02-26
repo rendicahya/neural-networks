@@ -22,7 +22,7 @@ def hebb_assoc_train_mat(s, t):
 
 
 def hebb_assoc_test(x, w):
-    y = [np.dot(x, w[:, i]) for i in range(2)]
+    y = [np.dot(x, w[:, i]) for i in range(len(w[0]))]
 
     return binstep(y)
 
@@ -44,6 +44,6 @@ if __name__ == '__main__':
 
     w = hebb_assoc_train_mat(s, t)
     # print(w)
-    y = hebb_assoc_test_mat([0, 0, 1, 1], w)
+    y = hebb_assoc_test([1, 1, 0, 0], w)
 
     print(y)
