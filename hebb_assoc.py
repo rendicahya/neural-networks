@@ -43,7 +43,7 @@ if __name__ == '__main__':
                   [0, 1]])
 
     w = hebb_assoc_train_mat(s, t)
-    # print(w)
     y = hebb_assoc_test([1, 1, 0, 0], w)
 
+    print(w)
     print(y)
