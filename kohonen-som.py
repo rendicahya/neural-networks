@@ -1,17 +1,19 @@
 import numpy as np
 
 
-def som(X, W, max_ep=100):
+def som(X, W, a, b, max_ep=100):
     ep = 0
 
     while ep < max_ep:
         for x in X:
-            for c, w in enumerate(W):
-                print(sum((w - x) ** 2))
+            d = [sum((w - x) ** 2) for w in W]
+            min = np.argmin(d)
+            W[min] += a * (x - W[min])
 
-            print()
+        a *= b
+        ep += 1
 
-        break
+    return W
 
 
 if __name__ == '__main__':
@@ -25,4 +27,7 @@ if __name__ == '__main__':
 
     R = 0
     a = .6
-    som(x, w, 1)
+    b = .5
+    w = som(x, w, a, b, 1000)
+
+    print(w)
