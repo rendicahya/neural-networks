@@ -1,7 +1,8 @@
 import numpy as np
 
 
-def som(X, W, a, b, max_ep=100):
+def som(X, a, b, max_ep, W):
+    W = np.random.uniform(size=(W, len(X[0])))
     ep = 0
 
     while ep < max_ep:
@@ -22,12 +23,12 @@ if __name__ == '__main__':
                   [1, 0, 0, 0],
                   [0, 0, 1, 1]])
 
-    w = np.array([[.2, .6, .5, .9],
-                  [.8, .4, .7, .3]])
+    # w = np.array([[.2, .6, .5, .9],
+    #               [.8, .4, .7, .3]])
 
     R = 0
     a = .6
     b = .5
-    w = som(x, w, a, b, 1000)
+    w = som(x, a, b, 100, 2)
 
     print(w)
