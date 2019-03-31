@@ -3,16 +3,15 @@ import numpy as np
 
 
 def som(X, a, b, max_ep, W):
-    if isinstance(W, int):
-        W = np.random.uniform(1, 5, (W, len(X[0])))
-
+    W = np.random.uniform(1, 5, (W, len(X[0])))
     ep = 0
+    dir = 'D:/SOM'
 
     plt.title('Epoch: 0')
     plt.plot(X[:, 0], X[:, 1], 'ko')
-    plt.savefig('D:/SOM/0-0.png')
+    plt.savefig('%s/0-0.png' % dir)
     plt.plot(W[:, 0], W[:, 1], 'bx')
-    plt.savefig('D:/SOM/0-1.png')
+    plt.savefig('%s/0-1.png' % dir)
     plt.clf()
 
     while ep < max_ep:
@@ -21,7 +20,7 @@ def som(X, a, b, max_ep, W):
             plt.plot(X[:, 0], X[:, 1], 'ko')
             plt.plot(W[:, 0], W[:, 1], 'bx')
             plt.plot(x[0], x[1], 'ro')
-            plt.savefig('D:/SOM/%d-%da.png' % (ep + 1, i + 1))
+            plt.savefig('%s/%d-%da.png' % (dir, ep + 1, i + 1))
             plt.clf()
 
             d = [sum((w - x) ** 2) for w in W]
@@ -32,7 +31,7 @@ def som(X, a, b, max_ep, W):
             plt.plot(X[:, 0], X[:, 1], 'ko')
             plt.plot(W[:, 0], W[:, 1], 'bx')
             plt.plot(x[0], x[1], 'ro')
-            plt.savefig('D:/SOM/%d-%db.png' % (ep + 1, i + 1))
+            plt.savefig('%s/%d-%db.png' % (dir, ep + 1, i + 1))
             plt.clf()
 
         a *= b
