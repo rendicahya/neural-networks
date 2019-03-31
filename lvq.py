@@ -4,9 +4,9 @@ import numpy as np
 def lvq(X, y, a, b, max_ep):
     cls, train_idx = np.unique(y, True)
     W = X[train_idx].astype(np.float64)
-    ep = 0
     X = np.array([x for i, x in enumerate(X) if i not in train_idx])
     y = np.array([y for i, y in enumerate(y) if i not in train_idx])
+    ep = 0
 
     while ep < max_ep:
         for i, x in enumerate(X):
