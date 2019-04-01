@@ -2,7 +2,7 @@ import numpy as np
 
 
 def lvq_train(X, y, a, b, max_ep):
-    cls, train_idx = np.unique(y, True)
+    c, train_idx = np.unique(y, True)
     W = X[train_idx].astype(np.float64)
     train = np.array([e for i, e in enumerate(zip(X, y)) if i not in train_idx])
     X = train[:, 0]
@@ -13,14 +13,21 @@ def lvq_train(X, y, a, b, max_ep):
         for i, x in enumerate(X):
             d = [sum((w - x) ** 2) for w in W]
             min = np.argmin(d)
-            s = 1 if y[i] == cls[min] else -1
+            s = 1 if y[i] == c[min] else -1
             W[min] += s * a * (x - W[min])
 
         a *= b
         ep += 1
-        break
 
-    return W
+    return W, c
+
+
+def lvq_test(x, W):
+    W, c = W
+    d = [sum((w - x) ** 2) for w in W]
+    min = np.argmin(d)
+
+    return c[min]
 
 
 if __name__ == '__main__':
@@ -46,5 +53,6 @@ if __name__ == '__main__':
     a = .1
     b = .5
     w = lvq_train(X, y, a, b, 1)
+    c = lvq_test([1, 0, 0, 1], w)
 
-    print(w)
+    print(c)
