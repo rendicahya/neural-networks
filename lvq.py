@@ -1,11 +1,12 @@
 import numpy as np
 
 
-def lvq(X, y, a, b, max_ep):
+def lvq_train(X, y, a, b, max_ep):
     cls, train_idx = np.unique(y, True)
     W = X[train_idx].astype(np.float64)
-    X = np.array([x for i, x in enumerate(X) if i not in train_idx])
-    y = np.array([y for i, y in enumerate(y) if i not in train_idx])
+    train = np.array([e for i, e in enumerate(zip(X, y)) if i not in train_idx])
+    X = train[:, 0]
+    y = train[:, 1]
     ep = 0
 
     while ep < max_ep:
@@ -39,11 +40,11 @@ if __name__ == '__main__':
     #               [4, 3],
     #               [3, 4],
     #               [4, 4]])
-
+    #
     # y = np.array([1, 1, 1, 1, 2, 2, 2, 2])
 
     a = .1
     b = .5
-    w = lvq(X, y, a, b, 100)
+    w = lvq_train(X, y, a, b, 1)
 
-    # print(w)
+    print(w)
