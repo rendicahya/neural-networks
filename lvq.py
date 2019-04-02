@@ -25,9 +25,8 @@ def lvq_train(X, y, a, b, max_ep):
 def lvq_test(x, W):
     W, c = W
     d = [sum((w - x) ** 2) for w in W]
-    min = np.argmin(d)
 
-    return c[min]
+    return c[np.argmin(d)]
 
 
 if __name__ == '__main__':
@@ -52,7 +51,7 @@ if __name__ == '__main__':
 
     a = .1
     b = .5
-    w = lvq_train(X, y, a, b, 1)
-    c = lvq_test([1, 0, 0, 1], w)
+    w = lvq_train(X, y, a, b, 10)
+    c = lvq_test([1, 0, 1, 0], w)
 
     print(c)
