@@ -28,4 +28,4 @@ def XOR(x):
 
 
 if __name__ == '__main__':
-    print(AND([1, 1]))
+    print(OR([1, 1]))
