@@ -1,5 +1,7 @@
 import numpy as np
 from sklearn.datasets import load_iris
+from sklearn.preprocessing import minmax_scale
+from sklearn.model_selection import train_test_split
 
 
 def sig(X):
@@ -13,30 +15,24 @@ def sigd(X):
         yield s * (1 - s)
 
 
-def bp_train(C, X, t, a, mep, mer):
-    nin = [np.empty(c) for c in C]
-    n = [np.empty(c + 1) if i < len(C) - 1 else np.empty(c) for i, c in enumerate(C)]
-    w = [np.random.rand(C[i] + 1, C[i + 1]) for i in range(len(C) - 1)]
+def bp_fit(C, X, t, a, mep, mer, w=None):
+    nin = [np.empty(i) for i in C]
+    n = [np.empty(j + 1) if i < len(C) - 1 else np.empty(j) for i, j in enumerate(C)]
     dw = [np.empty((C[i] + 1, C[i + 1])) for i in range(len(C) - 1)]
     d = [np.empty(s) for s in C[1:]]
     din = [np.empty(s) for s in C[1:-1]]
     ep = 0
-    er = []
     mse = 1
 
-    w = np.array([[[.1, .2],
-                   [.3, .4],
-                   [.5, .6],
-                   [.7, .8]],
-                  [[.1, .4],
-                   [.2, .5],
-                   [.3, .6]]])
+    if w is None:
+        w = np.array([np.random.rand(C[i] + 1, C[i + 1]) for i in range(len(C) - 1)])
 
     for i in range(0, len(n) - 1):
         n[i][-1] = 1
 
     while ep < mep and mse > mer:
         ep += 1
+        mse = 0
 
         for r in range(len(X)):
             n[0][:-1] = X[r]
@@ -46,6 +42,7 @@ def bp_train(C, X, t, a, mep, mer):
                 n[L][:len(nin[L])] = sig(nin[L])
 
             e = t[r] - n[-1]
+            mse += sum(e ** 2)
             d[-1] = e * list(sigd(nin[-1]))
             dw[-1] = a * d[-1] * n[-2].reshape((-1, 1))
 
@@ -56,21 +53,82 @@ def bp_train(C, X, t, a, mep, mer):
 
             w += dw
 
-    return w
+        mse /= len(X)
+
+    return w, ep, mse
 
 
-def bp_test():
+def bp_predict(x, w):
+    n = [np.empty(len(i)) for i in w]
+    nin = [np.empty(len(i[0])) for i in w]
+    n[0][:-1] = x
+
+    n.append(np.empty(len(w[-1][0])))
+
+    for L in range(0, len(w)):
+        nin[L] = np.dot(n[L], w[L])
+        n[L + 1][:len(nin[L])] = sig(nin[L])
+
+    return n[-1]
+
+
+def test3layer():
+    c = 3, 2, 2
+    X = [[.8, .2, .1],
+         [.1, .8, .9]]
+    y = [[0, 0],
+         [0, 1]]
+    w = np.array([[[.1, .2],
+                   [.3, .4],
+                   [.5, .6],
+                   [.7, .8]],
+                  [[.1, .4],
+                   [.2, .5],
+                   [.3, .6]]])
+
+    w, ep, mse = bp_fit(c, X, y, .1, 100, .1, w)
+    y = bp_predict([.8, .2, .1], w)
+
+    print(y)
+
+
+def test5layer():
     pass
+    # w = np.array([[[.1, .2],
+    #                [.3, .4],
+    #                [.5, .6],
+    #                [.7, .8]],
+    #               [[.1, .4],
+    #                [.2, .5],
+    #                [.3, .6]],
+    #               [[.3, .4, .5],
+    #                [.6, .5, .4],
+    #                [.8, .7, .6]]])
 
 
-r = 3, 2, 2
-# iris = load_iris()
-# X = iris.data
-# y = iris.target
-X = [[.8, .2, .1],
-     [.1, .8, .9]]
-y = [[0, 0],
-     [0, 1]]
-W = bp_train(r, X, y, .1, 1, .1)
+def testiris():
+    c = 4, 3, 2
 
-print(W)
+    iris = load_iris()
+    X = minmax_scale(iris.data)
+
+    y = iris.target
+    p = np.array([[0, 0], [0, 1], [1, 0]])
+    y = [p[i] for i in y]
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.33)
+    w, ep, mse = bp_fit(c, X_train, y_train, .1, 1000, .1)
+
+    print('Epoch: %d' % ep)
+    print('MSE: %f' % mse)
+
+    r = bp_predict(X_test[0], w)
+
+    print('Test X: {}'.format(X_test[0]))
+    print('Test y: {}'.format(y_test[0]))
+    print('Output: {}'.format(r))
+    print()
+
+
+if __name__ == '__main__':
+    testiris()
