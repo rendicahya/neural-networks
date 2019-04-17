@@ -17,7 +17,6 @@ def sigd(X):
 
 
 def bp_fit(C, X, t, a, mep, mer):
-   # Inisialisasi
    # nin: neuron input
    nin = [np.empty(i) for i in C]
 
@@ -42,35 +41,58 @@ def bp_fit(C, X, t, a, mep, mer):
    # mse: mean square error
    mse = 1
 
-   #
+   # Inisialisasi bias dengan nilai 1
    for i in range(0, len(n) - 1):
       n[i][-1] = 1
 
+   # Lakukan training selama belum mencapai epoch maks.
+   # atau mse masih lebih dari error maks.
    while ep < mep and mse > mer:
       ep += 1
       mse = 0
 
+      # Loop setiap layer
       for r in range(len(X)):
          n[0][:-1] = X[r]
 
+         # Fase 1: feedforward
          for L in range(1, len(C)):
+            # Hitung neuron input
             nin[L] = np.dot(n[L - 1], w[L - 1])
+
+            # Hitung nilai aktivasi
             n[L][:len(nin[L])] = sig(nin[L])
 
+         # Selisih antara nilai neuron output dengan target
          e = t[r] - n[-1]
+
+         # Hitung MSE
          mse += sum(e ** 2)
+
+         # Fase 2: backpropagation
+         # Hitung delta di output layer
          d[-1] = e * list(sigd(nin[-1]))
+
+         # Hitung delta w di output layer
          dw[-1] = a * d[-1] * n[-2].reshape((-1, 1))
 
          for L in range(len(C) - 1, 1, -1):
+            # Hitung delta input
             din[L - 2] = np.dot(d[L - 1], np.transpose(w[L - 1][:-1]))
+
+            # Hitung delta
             d[L - 2] = din[L - 2] * np.array(list(sigd(nin[L - 1])))
+
+            # Hitung delta w
             dw[L - 2] = (a * d[L - 2]) * n[L - 2].reshape((-1, 1))
 
+         # Update nilai bobot
          w += dw
 
+      # Bagi MSE dengan banyaknya data
       mse /= len(X)
 
+   # Return bobot hasil training, jumlah epoch, dan MSE
    return w, ep, mse
 
 
