@@ -1,6 +1,6 @@
 def binstep(x, th: int = 0) -> int:
     """
-    Thresholding a value either to 1 or 0 based on the threshold value.
+    Thresholding a value either to 1 or 0 (binary) based on the threshold value.
 
     :param x: The input value
     :param th: The threshold value
@@ -11,7 +11,7 @@ def binstep(x, th: int = 0) -> int:
 
 def bipstep(x, th: int = 0) -> int:
     """
-    Thresholding a value either to 1 or -1 based on the threshold value.
+    Thresholding a value either to 1 or -1 (bipolar) based on the threshold value.
 
     :param x: The input value
     :param th: The threshold value
