@@ -1,4 +1,4 @@
-def binstep(x, th=0) -> int:
+def binstep(x, th: int = 0) -> int:
     """
     Thresholding a value either to 1 or 0 based on the threshold value.
 
@@ -9,7 +9,7 @@ def binstep(x, th=0) -> int:
     return 1 if x >= th else 0
 
 
-def bipstep(x, th=0) -> int:
+def bipstep(x, th: int = 0) -> int:
     """
     Thresholding a value either to 1 or -1 based on the threshold value.
 
