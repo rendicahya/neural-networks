@@ -8,7 +8,7 @@ def line(w, th=0):
     return lambda x: (th - w[1] * x - w[0]) / w2
 
 
-def plot(f, s, t):
+def plot(fs, s, t):
     x = np.arange(-2, 3)
     col = 'ro', 'bo'
 
@@ -17,6 +17,8 @@ def plot(f, s, t):
 
         plt.plot(p[:, 1], p[:, 2], col[c])
 
+    for f in fs:
+        plt.plot(x, f(x))
+
     plt.axis([-2, 2, -2, 2])
-    plt.plot(x, f(x))
     plt.show()
