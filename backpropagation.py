@@ -124,10 +124,10 @@ def testiris():
     print('MSE: %f' % mse)
 
     out = list(bp_predict(X_test, w))
-    oc = [np.argmin(np.sum(abs(i - p), axis=1)) for i in out]
-    acc = accuracy_score(oc, y_test)
+    out = [np.argmin(np.sum(abs(i - p), axis=1)) for i in out]
+    acc = accuracy_score(out, y_test)
 
-    print('Output: {}'.format(oc))
+    print('Output: {}'.format(out))
     print('True  : {}'.format(y_test))
     print('Accuracy: %f' % acc)
 
