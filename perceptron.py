@@ -24,8 +24,6 @@ def percep_fit(s, t, th=0., a=1, draw=None):
         stop = True
         epoch += 1
 
-        # print(epoch)
-
         for i, s_ in enumerate(s):
             for j, t_ in enumerate(t[i]):
                 yin = np.dot(s_, w[:, j:j + 1])[0]
