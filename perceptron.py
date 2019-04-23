@@ -11,7 +11,7 @@ def step(x, th):
     return 1 if x > th else 0 if -th <= x <= th else -1
 
 
-def percep_train(s, t, th=0., a=1, draw=None):
+def percep_fit(s, t, th=0., a=1, draw=None):
     nx = len(s[0])
     ny = len(t[0])
     w = np.zeros((nx + 1, ny))
@@ -45,7 +45,7 @@ def percep_train(s, t, th=0., a=1, draw=None):
     return w, epoch
 
 
-def percep_test(X, w, th=0):
+def percep_predict(X, w, th=0):
     for x in X:
         y_in = np.dot([*x, 1], w)
         y = [step(i, th) for i in y_in]
@@ -61,7 +61,7 @@ def test():
 
     t = [[1, 0], [0, 1], [0, 1], [0, 1]]
 
-    w, epoch = percep_train(s, t, .2)
+    w, epoch = percep_fit(s, t, .2)
     # y = percep_test([-1, 1, -1], w)
 
     print(w)
@@ -81,9 +81,9 @@ def test_iris():
     y = [c[i] for i in y]
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.3)
-    w, epoch = percep_train(X_train, y_train)
+    w, epoch = percep_fit(X_train, y_train)
 
-    out = list(percep_test(X_test, w))
+    out = list(percep_predict(X_test, w))
     acc = accuracy_score(out, y_test)
 
     print(f'Epoch: {epoch}')
