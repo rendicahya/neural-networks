@@ -82,10 +82,14 @@ def test_iris():
     w, epoch = percep_fit(X_train, y_train)
 
     out = list(percep_predict(X_test, w))
-    acc = accuracy_score(out, y_test)
+    out2 = [i[0] + (2 * i[1]) for i in out]
+    # out = [c[i] for i in out]
+    # acc = accuracy_score(out, y_test)
 
+    print(out)
+    print(out2)
     print(f'Epoch: {epoch}')
-    print(f'Accuracy: {acc}')
+    # print(f'Accuracy: {acc}')
 
 
 if __name__ == '__main__':
