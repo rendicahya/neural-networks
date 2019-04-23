@@ -123,8 +123,8 @@ def testiris():
     print('Epoch: %d' % ep)
     print('MSE: %f' % mse)
 
-    o = list(bp_predict(X_test, w))
-    oc = [np.argmin(np.sum(abs(i - p), axis=1)) for i in o]
+    out = list(bp_predict(X_test, w))
+    oc = [np.argmin(np.sum(abs(i - p), axis=1)) for i in out]
     acc = accuracy_score(oc, y_test)
 
     print('Output: {}'.format(oc))
