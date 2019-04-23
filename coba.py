@@ -1,5 +1,3 @@
 import numpy as np
 
-a = [1, 2]
-
-print(a[::-1])
+print(np.ones((4, 1)))
