@@ -24,6 +24,8 @@ def percep_fit(s, t, th=0., a=1, draw=None):
         stop = True
         epoch += 1
 
+        print(f'Epoch: {epoch}')
+
         for i, s_ in enumerate(s):
             for j, t_ in enumerate(t[i]):
                 yin = np.dot(s_, w[:, j:j + 1])[0]
@@ -34,11 +36,11 @@ def percep_fit(s, t, th=0., a=1, draw=None):
                     dw = a * t_ * s_
                     w[:, j:j + 1] += dw.reshape(nx + 1, -1)
 
-                if draw == 'loop' and nx == 2:
-                    plot([line(w, th), line(w, -th)], s, t)
+                # if draw == 'loop' and nx == 2:
+                #     plot([line(w, th), line(w, -th)], s, t)
 
-        if draw == 'result' and nx == 2:
-            plot([line(w, th), line(w, -th)], s, t)
+        # if draw == 'result' and nx == 2:
+        #     plot([line(w, th), line(w, -th)], s, t)
 
     return w, epoch
 
@@ -68,28 +70,28 @@ def test():
 
 def test_iris():
     iris = sns.load_dataset('iris')
-    iris = iris.loc[iris['species'] != 'virginica']
+    iris = iris.loc[iris['species'] != 'setosa']
     iris = iris.drop(['sepal_width', 'petal_width'], axis=1)
 
     X = iris[['sepal_length', 'petal_length']].to_numpy()
     X = minmax_scale(X)
 
-    c = {'virginica': [-1, -1], 'setosa': [-1, 1], 'versicolor': [1, -1]}
     y = iris['species'].to_numpy()
+    c = {'virginica': [-1, -1], 'setosa': [-1, 1], 'versicolor': [1, -1]}
     y = [c[i] for i in y]
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.3)
     w, epoch = percep_fit(X_train, y_train)
 
+    to_class = lambda x: [0 if i == [-1, -1] else 1 if i == [-1, 1] else 2 for i in x]
     out = list(percep_predict(X_test, w))
-    out2 = [i[0] + (2 * i[1]) for i in out]
-    # out = [c[i] for i in out]
-    # acc = accuracy_score(out, y_test)
+    out = to_class(out)
 
-    print(out)
-    print(out2)
+    y_test = to_class(y_test)
+    acc = accuracy_score(out, y_test)
+
     print(f'Epoch: {epoch}')
-    # print(f'Accuracy: {acc}')
+    print(f'Accuracy: {acc}')
 
 
 if __name__ == '__main__':

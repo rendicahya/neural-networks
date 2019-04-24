@@ -114,22 +114,21 @@ def testiris():
     iris = load_iris()
     X = minmax_scale(iris.data)
 
-    y = iris.target
     p = np.array([[0, 0], [0, 1], [1, 0]])
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.3)
+    X_train, X_test, y_train, y_test = train_test_split(X, iris.target, test_size=.3)
     w, ep, mse = bp_fit(c, X_train, [p[i] for i in y_train], .1, 1000, .1)
 
-    print('Epoch: %d' % ep)
-    print('MSE: %f' % mse)
+    print(f'Epoch: {ep}')
+    print(f'MSE: {mse}')
 
     out = list(bp_predict(X_test, w))
     out = [np.argmin(np.sum(abs(i - p), axis=1)) for i in out]
     acc = accuracy_score(out, y_test)
 
-    print('Output: {}'.format(out))
-    print('True  : {}'.format(y_test))
-    print('Accuracy: %f' % acc)
+    print(f'Output: {out}')
+    print(f'True  : {y_test}')
+    print(f'Accuracy: {acc}')
 
 
 if __name__ == '__main__':

@@ -1,3 +1,5 @@
 import numpy as np
 
-print(np.ones((4, 1)))
+a = [1, -1]
+
+print(a == [1, -1])
