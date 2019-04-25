@@ -5,12 +5,9 @@ import seaborn as sns
 # from sklearn.preprocessing import minmax_scale
 
 iris = sns.load_dataset('iris')
-# iris = iris.loc[iris['species'] != 'setosa']
+# iris = iris.loc[iris['species'] != 'virginica']
 iris = iris.drop(['sepal_width', 'petal_width'], axis=1)
-
-virginica = iris.loc[iris['species'] == 'virginica']
-# iris.loc[iris['species'] == 'virginica']['sepal_length'] = 10
-# virginica['sepal_length'] += 10
+iris.loc[iris['species'] == 'virginica', 'petal_length'] += 2
 
 # X = iris[['sepal_length', 'petal_length']].to_numpy()
 # X = minmax_scale(X)

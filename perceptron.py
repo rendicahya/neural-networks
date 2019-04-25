@@ -70,28 +70,29 @@ def test():
 
 def test_iris():
     iris = sns.load_dataset('iris')
-    iris = iris.loc[iris['species'] != 'setosa']
+    # iris = iris.loc[iris['species'] != 'virginica']
     iris = iris.drop(['sepal_width', 'petal_width'], axis=1)
+    iris.loc[iris['species'] == 'virginica', 'petal_length'] += 2
 
     X = iris[['sepal_length', 'petal_length']].to_numpy()
     X = minmax_scale(X)
 
     y = iris['species'].to_numpy()
-    c = {'virginica': [-1, -1], 'setosa': [-1, 1], 'versicolor': [1, -1]}
+    c = {'virginica': [1, -1, -1], 'setosa': [-1, 1, -1], 'versicolor': [-1, -1, 1]}
     y = [c[i] for i in y]
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.3)
     w, epoch = percep_fit(X_train, y_train)
 
-    to_class = lambda x: [0 if i == [-1, -1] else 1 if i == [-1, 1] else 2 for i in x]
-    out = list(percep_predict(X_test, w))
-    out = to_class(out)
+    # to_class = lambda x: [0 if i == [-1, -1] else 1 if i == [-1, 1] else 2 for i in x]
+    # out = list(percep_predict(X_test, w))
+    # out = to_class(out)
 
-    y_test = to_class(y_test)
-    acc = accuracy_score(out, y_test)
+    # y_test = to_class(y_test)
+    # acc = accuracy_score(out, y_test)
 
-    print(f'Epoch: {epoch}')
-    print(f'Accuracy: {acc}')
+    # print(f'Epoch: {epoch}')
+    # print(f'Accuracy: {acc}')
 
 
 if __name__ == '__main__':
