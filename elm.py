@@ -2,43 +2,54 @@ import numpy as np
 
 
 def elm_fit(X, t, h):
-    W = np.array([[-.4, .2, .1],
-                  [-.2, 0, .4],
-                  [-.3, .3, -.1]])
-    # W = np.random.uniform(-.5, .5, (h, len(X[0])))
+    # W = np.array([[-.4, .2, .1],
+    #               [-.2, 0, .4],
+    #               [-.3, .3, -.1]])
+    W = np.random.uniform(-.5, .5, (h, len(X[0])))
     Hi = X @ W.T
     H = 1 / (1 + np.exp(-Hi))
     Ht = H.T
     Hp = np.linalg.inv(Ht @ H) @ Ht
     b = Hp @ t
     y = H @ b
+    mape = sum(abs(y - t) / t * 100) / len(t)
 
-    return W, b
+    return W, b, mape
 
 
-def elm_predict():
-    pass
+def elm_predict(X, W, b):
+    Hi = X @ W.T
+    H = 1 / (1 + np.exp(-Hi))
+    y = H @ b
+
+    return y
 
 
 def test():
-    X = [[1, 1, 1],
-         [1, 0, 1],
-         [1, 1, 0],
-         [1, 1, 0],
-         [0, 1, 0],
-         [0, 0, 0],
-         [0, 1, 0],
-         [1, 1, 0],
-         [0, 0, 0]]
+    X_train = [[1, 1, 1],
+               [1, 0, 1],
+               [1, 1, 0],
+               [1, 1, 0],
+               [0, 1, 0],
+               [0, 0, 0],
+               [0, 1, 0],
+               [1, 1, 0],
+               [0, 0, 0]]
 
-    y = [1, 1, 1, 2, 2, 2, 3, 3, 3]
+    y_train = [1, 1, 1, 2, 2, 2, 3, 3, 3]
     h = 3
 
-    W, b = elm_fit(X, y, h)
+    W, b, mape = elm_fit(X_train, y_train, h)
 
-    X = [[1, 0, 1],
-         [1, 1, 0],
-         [0, 1, 0]]
+    X_test = [[1, 0, 1],
+              [1, 1, 0],
+              [0, 1, 0]]
+
+    y_test = [1, 1, 3]
+    y_predict = elm_predict(X_test, W, b)
+    mape = sum(abs(y_predict - y_test) / y_test * 100) / len(y_test)
+
+    print(mape)
 
 
 if __name__ == '__main__':
