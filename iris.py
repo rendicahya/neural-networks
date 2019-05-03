@@ -7,6 +7,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import minmax_scale
 
 from backpropagation import bp_predict, bp_fit
+from elm import elm_fit, elm_predict
 
 
 def plot():
@@ -28,9 +29,8 @@ def plot():
     plt.show()
 
 
-def classify():
+def bp():
     c = 4, 3, 2
-
     iris = load_iris()
     X = minmax_scale(iris.data)
     Y = np.array([[0, 0],
@@ -52,5 +52,26 @@ def classify():
     print(f'Accuracy: {acc}')
 
 
+def elm():
+    iris = load_iris()
+    X = minmax_scale(iris.data)
+    Y = np.array([[0, 0],
+                  [0, 1],
+                  [1, 0]])
+
+    X_train, X_test, y_train, y_test = train_test_split(X, iris.target, test_size=.3)
+    W, b, mape = elm_fit(X_train, y_train, 5)
+
+    print(f'MAPE: {mape}')
+
+    predict = list(elm_predict(X_test, W, b))
+    predict = [np.argmin(np.sum(abs(i - Y), axis=1)) for i in predict]
+    acc = accuracy_score(predict, y_test)
+
+    print(f'Output: {predict}')
+    print(f'True  : {y_test}')
+    print(f'Accuracy: {acc}')
+
+
 if __name__ == '__main__':
-    classify()
+    elm()
