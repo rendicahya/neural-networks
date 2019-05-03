@@ -1,6 +1,4 @@
 import matplotlib.pyplot as plt
-import numpy as np
-from utils import to_pattern, to_class
 import seaborn as sns
 from sklearn.datasets import load_iris
 from sklearn.metrics import accuracy_score
@@ -9,6 +7,7 @@ from sklearn.preprocessing import minmax_scale
 
 from backpropagation import bp_predict, bp_fit
 from elm import elm_fit, elm_predict
+from utils import to_pattern, to_class
 
 
 def plot():
@@ -55,17 +54,16 @@ def bp():
 def elm():
     iris = load_iris()
     X = minmax_scale(iris.data)
-    Y = np.array([[0, 0],
-                  [0, 1],
-                  [1, 0]])
+    Y = to_pattern(iris.target)
 
     X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=.3)
     W, b, mape = elm_fit(X_train, y_train, 5)
 
     print(f'MAPE: {mape}')
 
-    predict = list(elm_predict(X_test, W, b))
-    predict = [to_class(i) for i in predict]
+    predict = elm_predict(X_test, W, b)
+    predict = to_class(predict)
+    y_test = to_class(y_test)
     acc = accuracy_score(predict, y_test)
 
     print(f'Output: {predict}')
@@ -74,4 +72,4 @@ def elm():
 
 
 if __name__ == '__main__':
-    bp()
+    plot()
