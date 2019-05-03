@@ -42,12 +42,12 @@ def bp():
     print(f'Epoch: {ep}')
     print(f'MSE: {mse}')
 
-    out = list(bp_predict(X_test, w))
-    out = to_class(out)
+    predict = list(bp_predict(X_test, w))
+    predict = to_class(predict)
     y_test = to_class(y_test)
-    acc = accuracy_score(out, y_test)
+    acc = accuracy_score(predict, y_test)
 
-    print(f'Output: {out}')
+    print(f'Output: {predict}')
     print(f'True  : {y_test}')
     print(f'Accuracy: {acc}')
 
