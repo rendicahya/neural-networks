@@ -1,5 +1,7 @@
 import numpy as np
 
+from utils import to_class, to_pattern
+
 
 def sig(X):
     return [1 / (1 + np.exp(-x)) for x in X]
@@ -58,6 +60,7 @@ def bp_fit(C, X, t, a, mep, mer):
 def bp_predict(X, w):
     n = [np.empty(len(i)) for i in w]
     nin = [np.empty(len(i[0])) for i in w]
+    predict = []
 
     n.append(np.empty(len(w[-1][0])))
 
@@ -68,15 +71,17 @@ def bp_predict(X, w):
             nin[L] = np.dot(n[L], w[L])
             n[L + 1][:len(nin[L])] = sig(nin[L])
 
-        yield n[-1].copy()
+        predict.append(n[-1].copy())
+
+    return predict
 
 
 def test3layer():
     c = 3, 2, 2
     X = [[.8, .2, .1],
          [.1, .8, .9]]
-    Y = [[0, 0],
-         [0, 1]]
+    y = [0, 1]
+    Y = to_pattern(y)
     w = np.array([[[.1, .2],
                    [.3, .4],
                    [.5, .6],
@@ -85,10 +90,13 @@ def test3layer():
                    [.2, .5],
                    [.3, .6]]])
 
-    w, ep, mse = bp_fit(c, X, Y, .1, 100, .1)
-    Y = bp_predict([.8, .2, .1], w)
-
+    w, ep, mse = bp_fit(c, X, Y, .1, 1000, .1)
+    predict = bp_predict([[.8, .2, .1], [.1, .8, .9]], w)
     print(Y)
+    print(predict)
+    predict = to_class(predict)
+
+    print(predict)
 
 
 def test5layer():
