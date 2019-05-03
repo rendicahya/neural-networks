@@ -2,9 +2,6 @@ import numpy as np
 
 
 def elm_fit(X, t, h):
-    # W = np.array([[-.4, .2, .1],
-    #               [-.2, 0, .4],
-    #               [-.3, .3, -.1]])
     W = np.random.uniform(-.5, .5, (h, len(X[0])))
     Hi = X @ W.T
     H = 1 / (1 + np.exp(-Hi))
@@ -49,6 +46,8 @@ def test():
     y_predict = elm_predict(X_test, W, b)
     mape = sum(abs(y_predict - y_test) / y_test * 100) / len(y_test)
 
+    print(y_test)
+    print(y_predict)
     print(mape)
 
 
