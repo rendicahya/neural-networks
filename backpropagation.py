@@ -84,7 +84,7 @@ def test3layer():
                    [.2, .5],
                    [.3, .6]]])
 
-    w, ep, mse = bp_fit(c, X, y, .1, 100, .1, w)
+    w, ep, mse = bp_fit(c, X, y, .1, 100, .1)
     y = bp_predict([.8, .2, .1], w)
 
     print(y)
