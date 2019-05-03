@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from utils import to_pattern, to_class
 import seaborn as sns
 from sklearn.datasets import load_iris
 from sklearn.metrics import accuracy_score
@@ -32,30 +33,18 @@ def plot():
 def bp():
     iris = load_iris()
     X = minmax_scale(iris.data)
-    p = np.array([[0, 0],
-                  [0, 1],
-                  [1, 0]])
-    Y = []
-
-    # for r in iris.target:
-    #     print(r)
-    #     print(bin(r)[2:])
-    #     print()
-
-    # print(iris.target)
-    # print(Y)
-    # print(len(Y))
-    # exit(0)
+    Y = to_pattern(iris.target)
 
     c = 4, 3, 2
     X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=.3)
-    w, ep, mse = bp_fit(c, X_train, [p[i] for i in y_train], .1, 1000, .1)
+    w, ep, mse = bp_fit(c, X_train, y_train, .1, 1000, .1)
 
     print(f'Epoch: {ep}')
     print(f'MSE: {mse}')
 
     out = list(bp_predict(X_test, w))
-    out = [np.argmin(np.sum(abs(i - p), axis=1)) for i in out]
+    out = to_class(out)
+    y_test = to_class(y_test)
     acc = accuracy_score(out, y_test)
 
     print(f'Output: {out}')
@@ -70,13 +59,13 @@ def elm():
                   [0, 1],
                   [1, 0]])
 
-    X_train, X_test, y_train, y_test = train_test_split(X, iris.target, test_size=.3)
+    X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=.3)
     W, b, mape = elm_fit(X_train, y_train, 5)
 
     print(f'MAPE: {mape}')
 
     predict = list(elm_predict(X_test, W, b))
-    predict = [np.argmin(np.sum(abs(i - Y), axis=1)) for i in predict]
+    predict = [to_class(i) for i in predict]
     acc = accuracy_score(predict, y_test)
 
     print(f'Output: {predict}')
