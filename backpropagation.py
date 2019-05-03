@@ -50,6 +50,7 @@ def bp_fit(C, X, t, a, mep, mer):
             w += dw
 
         mse /= len(X)
+        print(f'MSE: {mse}')
 
     return w, ep, mse
 
