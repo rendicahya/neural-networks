@@ -74,7 +74,7 @@ def test3layer():
     c = 3, 2, 2
     X = [[.8, .2, .1],
          [.1, .8, .9]]
-    y = [[0, 0],
+    Y = [[0, 0],
          [0, 1]]
     w = np.array([[[.1, .2],
                    [.3, .4],
@@ -84,10 +84,10 @@ def test3layer():
                    [.2, .5],
                    [.3, .6]]])
 
-    w, ep, mse = bp_fit(c, X, y, .1, 100, .1)
-    y = bp_predict([.8, .2, .1], w)
+    w, ep, mse = bp_fit(c, X, Y, .1, 100, .1)
+    Y = bp_predict([.8, .2, .1], w)
 
-    print(y)
+    print(Y)
 
 
 def test5layer():
