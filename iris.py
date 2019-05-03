@@ -30,21 +30,32 @@ def plot():
 
 
 def bp():
-    c = 4, 3, 2
     iris = load_iris()
     X = minmax_scale(iris.data)
-    Y = np.array([[0, 0],
+    p = np.array([[0, 0],
                   [0, 1],
                   [1, 0]])
+    Y = []
 
-    X_train, X_test, y_train, y_test = train_test_split(X, iris.target, test_size=.3)
-    w, ep, mse = bp_fit(c, X_train, [Y[i] for i in y_train], .1, 1000, .1)
+    # for r in iris.target:
+    #     print(r)
+    #     print(bin(r)[2:])
+    #     print()
+
+    # print(iris.target)
+    # print(Y)
+    # print(len(Y))
+    # exit(0)
+
+    c = 4, 3, 2
+    X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=.3)
+    w, ep, mse = bp_fit(c, X_train, [p[i] for i in y_train], .1, 1000, .1)
 
     print(f'Epoch: {ep}')
     print(f'MSE: {mse}')
 
     out = list(bp_predict(X_test, w))
-    out = [np.argmin(np.sum(abs(i - Y), axis=1)) for i in out]
+    out = [np.argmin(np.sum(abs(i - p), axis=1)) for i in out]
     acc = accuracy_score(out, y_test)
 
     print(f'Output: {out}')
@@ -74,4 +85,4 @@ def elm():
 
 
 if __name__ == '__main__':
-    elm()
+    bp()
