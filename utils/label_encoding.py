@@ -42,10 +42,10 @@ def onehot_dec(enc, mi=0):
 
 
 def test():
-    print(bin_enc([1, 2, 3]))
-    # print(bin_enc([1, 2, 3, 4]))
+    # print(bin_enc([1, 2, 3]))
+    print(bin_enc([1, 2, 3, 4]))
 
-    print(bin_dec([[0, 0], [0, 1], [1, 0]], 1))
+    # print(bin_dec([[0, 0], [0, 1], [1, 0]], 1))
 
     # print(to_class([[.1, .9, .1]]))
     # print(to_class([[0.20232853, 0.67238648]]))
