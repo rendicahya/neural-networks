@@ -7,7 +7,7 @@ from sklearn.preprocessing import minmax_scale
 
 from backpropagation import bp_predict, bp_fit
 from elm import elm_fit, elm_predict
-from utils import to_pattern, to_class
+from utils import bin_enc, bin_dec
 
 
 def plot():
@@ -32,7 +32,7 @@ def plot():
 def bp():
     iris = load_iris()
     X = minmax_scale(iris.data)
-    Y = to_pattern(iris.target)
+    Y = bin_enc(iris.target)
 
     c = 4, 3, 2
     X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=.3)
@@ -42,8 +42,8 @@ def bp():
     print(f'MSE: {mse}')
 
     predict = list(bp_predict(X_test, w))
-    predict = to_class(predict)
-    y_test = to_class(y_test)
+    predict = bin_dec(predict)
+    y_test = bin_dec(y_test)
     acc = accuracy_score(predict, y_test)
 
     print(f'Output: {predict}')
@@ -54,7 +54,7 @@ def bp():
 def elm():
     iris = load_iris()
     X = minmax_scale(iris.data)
-    Y = to_pattern(iris.target)
+    Y = bin_enc(iris.target)
 
     X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=.3)
     W, b, mape = elm_fit(X_train, y_train, 5)
@@ -62,8 +62,8 @@ def elm():
     print(f'MAPE: {mape}')
 
     predict = elm_predict(X_test, W, b)
-    predict = to_class(predict)
-    y_test = to_class(y_test)
+    predict = bin_dec(predict)
+    y_test = bin_dec(y_test)
     acc = accuracy_score(predict, y_test)
 
     print(f'Output: {predict}')
