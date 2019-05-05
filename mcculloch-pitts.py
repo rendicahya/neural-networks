@@ -1,6 +1,6 @@
 import numpy as np
 
-from functions import binstep
+from utils.functions import binstep
 
 
 def AND(x):

@@ -1,6 +1,6 @@
 import numpy as np
 
-from utils import bin_dec, bin_enc
+from utils.label_pattern import bin_dec, bin_enc
 
 
 def sig(X):

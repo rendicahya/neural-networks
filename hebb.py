@@ -1,7 +1,7 @@
 import numpy as np
 
-from draw_utils import plot, line
-from functions import bipstep
+from utils.functions import bipstep
+from utils.visualization import plot, line
 
 
 def hebb_train(s, t, draw=False):

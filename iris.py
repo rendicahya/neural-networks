@@ -7,7 +7,7 @@ from sklearn.preprocessing import minmax_scale
 
 from backpropagation import bp_predict, bp_fit
 from elm import elm_fit, elm_predict
-from utils import bin_enc, bin_dec
+from utils.label_pattern import bin_enc, bin_dec
 
 
 def plot():
