@@ -7,7 +7,7 @@ from sklearn.preprocessing import minmax_scale
 
 from algorithms.backpropagation import bp_predict, bp_fit
 from algorithms.elm import elm_fit, elm_predict
-from utils.label_pattern import onehot_enc, onehot_dec
+from utils.label_encoding import onehot_enc, onehot_dec
 
 
 def plot():
