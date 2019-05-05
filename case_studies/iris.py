@@ -41,7 +41,7 @@ def bp():
     print(f'Epoch: {ep}')
     print(f'MSE: {mse}')
 
-    predict = list(bp_predict(X_test, w))
+    predict = bp_predict(X_test, w)
     predict = bin_dec(predict)
     y_test = bin_dec(y_test)
     acc = accuracy_score(predict, y_test)
