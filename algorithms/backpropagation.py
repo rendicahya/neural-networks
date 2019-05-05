@@ -27,7 +27,7 @@ def bp_fit(C, X, t, a, mep, mer):
     for i in range(0, len(n) - 1):
         n[i][-1] = 1
 
-    while ep < mep and mse > mer:
+    while (mep == -1 or ep < mep) and mse > mer:
         ep += 1
         mse = 0
 
