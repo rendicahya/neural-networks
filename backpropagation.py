@@ -1,6 +1,6 @@
 import numpy as np
 
-from utils import to_class, to_pattern
+from utils import bin_dec, bin_enc
 
 
 def sig(X):
@@ -81,7 +81,7 @@ def test3layer():
     X = [[.8, .2, .1],
          [.1, .8, .9]]
     y = [0, 1]
-    Y = to_pattern(y)
+    Y = bin_enc(y)
     w = np.array([[[.1, .2],
                    [.3, .4],
                    [.5, .6],
@@ -94,7 +94,7 @@ def test3layer():
     predict = bp_predict([[.8, .2, .1], [.1, .8, .9]], w)
     print(Y)
     print(predict)
-    predict = to_class(predict)
+    predict = bin_dec(predict)
 
     print(predict)
 
