@@ -52,7 +52,7 @@ def bp_fit(C, X, t, a, mep, mer):
             w += dw
 
         mse /= len(X)
-        print(f'MSE: {mse}')
+        print(f'Epoch #{ep}, MSE: {mse}')
 
     return w, ep, mse
 
