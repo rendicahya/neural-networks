@@ -5,8 +5,8 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import minmax_scale
 
-from backpropagation import bp_predict, bp_fit
-from elm import elm_fit, elm_predict
+from algorithms.backpropagation import bp_predict, bp_fit
+from algorithms.elm import elm_fit, elm_predict
 from utils.label_pattern import onehot_enc, onehot_dec
 
 

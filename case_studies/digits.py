@@ -3,7 +3,7 @@ from sklearn import datasets
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import minmax_scale
 
-from backpropagation import bp_fit
+from algorithms.backpropagation import bp_fit
 
 
 def bp():

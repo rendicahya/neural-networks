@@ -1,6 +1,6 @@
 import numpy as np
 
-from maxnet import maxnet
+from algorithms.maxnet import maxnet
 
 
 def hamming(ex, x):
