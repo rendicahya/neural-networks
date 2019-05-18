@@ -8,7 +8,7 @@ def step(x, th):
     return 1 if x > th else 0 if -th <= x <= th else -1
 
 
-def percep_fit(s, t, th=0., a=1, draw=None):
+def percep_fit(s, t, th=0., a=1, draw=False):
     nx = len(s[0])
     ny = len(t[0])
     w = np.zeros((nx + 1, ny))
@@ -28,13 +28,21 @@ def percep_fit(s, t, th=0., a=1, draw=None):
                 yin = np.dot(s_, w[:, j:j + 1])[0]
                 y = step(yin, th)
 
+                print(f'yin: {yin}')
+                print(f'y: {y}')
+                print(f'w: {w}')
+
                 if y != t_:
                     stop = False
                     dw = a * t_ * s_
                     w[:, j:j + 1] += dw.reshape(nx + 1, -1)
 
+                print(f'w\': {w}')
+
                 # if draw == 'loop' and nx == 2:
                 #     plot([line(w, th), line(w, -th)], s, t)
+
+        stop = True
 
         # if draw == 'result' and nx == 2:
         #     plot([line(w, th), line(w, -th)], s, t)
@@ -48,6 +56,14 @@ def percep_predict(X, w, th=0):
         y = [step(i, th) for i in y_in]
 
         yield y
+
+
+def quiz():
+    s = [[1, -1, 1],
+         [-1, -1, -1],
+         [-1, 1, -1]]
+    t = [[-1], [1], [1]]
+    percep_fit(s, t, .5, 1)
 
 
 def test():
@@ -93,4 +109,4 @@ def test_iris():
 
 
 if __name__ == '__main__':
-    test_iris()
+    quiz()
