@@ -1,6 +1,6 @@
-def binstep(x, th: int = 0) -> int:
+def binstep(x, th=0):
     return 1 if x >= th else 0
 
 
-def bipstep(x, th: int = 0) -> int:
+def bipstep(x, th=0):
     return 1 if x >= th else -1

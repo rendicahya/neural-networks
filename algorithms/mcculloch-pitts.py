@@ -25,3 +25,8 @@ def XOR(x):
     z = [ANDNOT(x), ANDNOT(x[::-1])]
 
     return OR(z)
+
+
+if __name__ == '__main__':
+    x = 0, 0
+    print(AND(x))
